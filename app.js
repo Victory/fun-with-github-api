@@ -2,8 +2,11 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var queryString = require("querystring");
+var mu = require('mu2');
+mu.root = __dirname + '/templates';
 
 var app = express();
+
 
 var apiBase = "https://api.github.com";
 app.use(bodyParser.urlencoded({
@@ -12,7 +15,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-  res.send('<form method="POST"><input name="location"><button>Submit</button></form>');
+
+  var stream = mu.compileAndRender('index.html', {name: "john"});
+  stream.pipe(res);
+
 });
 
 app.post('/', function (req, res) {
