@@ -39,8 +39,10 @@ app.post('/', function (req, res) {
 
   request(options, function (err, response, body) {
     if (!err && response.statusCode === 200) {
-      res.writeHead(200, {"Content-Type": "application/json"});
-      res.end(body);
+      var users = JSON.parse(body);
+      console.log(users.items[0]);
+      var stream = mu.compileAndRender('drill.html', users);
+      stream.pipe(res);
     } else if (err) {
       res.send(err);
     } else {
