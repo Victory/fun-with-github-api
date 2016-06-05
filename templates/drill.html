@@ -7,7 +7,11 @@
 <body>
 <ol>
     {{#items}}
-        <li>{{login}}</li>
+        <li>
+            <a href="{{html_url}}">
+                {{login}}
+            </a>
+        </li>
     {{/items}}
 </ol>
 </body>
